@@ -1,12 +1,12 @@
 import sys
 import argparse
-from ..install.build import Builder
-from ..remove.remove import Remover
-from ..upgrade.upgrade import Upgrader
-from ..use.flags import UseFlags
-from ..use.query import UseQuery
-from ..sync.sync import SyncManager
-from ..logging.logger import Logger
+from source.modules.build import Builder
+from source.modules.remove import Remover
+from source.modules.upgrade import Upgrader
+from source.modules.flags import UseFlags
+from source.modules.query import UseQuery
+from source.modules.sync import SyncManager
+from source.modules.logger import Logger
 
 class SourceCLI:
     """ Interface de linha de comando (CLI) para o gerenciador de pacotes source. """
@@ -140,13 +140,13 @@ class SourceCLI:
             elif args.command in ("create", "c"):
                 self.logger.info(f"Criando nova receita para {args.package}...")
                 # chamar módulo que gera um template de receita
-                from ..create.create import RecipeCreator
+                from source.modules.create import RecipeCreator
                 creator = RecipeCreator(package=args.package, template=args.template, logger=self.logger)
                 creator.create()
 
             elif args.command in ("history", "h"):
                 self.logger.info(f"Exibindo histórico (limite={args.limit})...")
-                from ..history.history import HistoryManager
+                from source.modules.history import HistoryManager
                 hm = HistoryManager(limit=args.limit, logger=self.logger)
                 hm.show()
 
